@@ -1,5 +1,3 @@
-
-
 import { SVGProps } from "react";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
@@ -7,7 +5,6 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 };
 
 export interface IPost {
-  id: Key | null | undefined;
   _id: string;
   title: string;
   description: string;
@@ -44,7 +41,7 @@ export interface IUser {
   status: string;
   mobileNumber: string;
   profilePhoto: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
 }
