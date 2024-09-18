@@ -1,24 +1,28 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest } from "next/server";
 
 const AuthRoutes = ["/login", "/register"];
+
 type Role = keyof typeof roleBasedRoutes;
+
 const roleBasedRoutes = {
-  USER: ["/^\/profile/"],
-  ADMIN: ["/^\/admin"],
+  USER: [/^\/profile/],
+  ADMIN: [/^\/admin/],
 };
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const user = {
-      name: 'John Doe',
-      token: 'adsf asda',
-      role: 'USER'
-  }
+  console.log(pathname);
 
-  // const user = undefined;
+  //   const user = {
+  //     name: "Mir",
+  //     token: "adsf asda",
+  //     role: "ADMIN",
+  //   };
+
+  const user = undefined;
 
   if (!user) {
     if (AuthRoutes.includes(pathname)) {
@@ -28,10 +32,11 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  if(user?.role && roleBasedRoutes[user?.role as Role]){
+  if (user?.role && roleBasedRoutes[user?.role as Role]) {
     const routes = roleBasedRoutes[user?.role as Role];
-    if(routes.some((route) => pathname.match(route))){
-      return NextResponse.next(); 
+
+    if (routes.some((route) => pathname.match(route))) {
+      return NextResponse.next();
     }
   }
 
